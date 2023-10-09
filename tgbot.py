@@ -1,11 +1,12 @@
 import math
+import sys
 
 import redis
 import telebot
 
 bot = telebot.TeleBot("6612234170:AAGqKFvH0G5kyo9dVPtCmopBow9Pj_QrFo0")
 r = redis.from_url("redis://redis:5370")
-
+sys.set_int_max_str_digits(10000000)
 
 @bot.message_handler(content_types=["text"])
 def get_factorial(message):
@@ -21,10 +22,11 @@ def get_factorial(message):
             fact.decode()
         bot.send_message(message.from_user.id, fact)
     except ValueError as ex:
-        print(ex)
         bot.send_message(
             message.from_user.id, "Введите число для получения факториала."
         )
+    except Exception as ex:
+        print(ex)
 
 
 bot.polling()
