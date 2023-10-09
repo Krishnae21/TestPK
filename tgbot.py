@@ -11,15 +11,17 @@ r = redis.Redis(host='localhost', port=5370, db=0)
 def get_factorial(message):
     try:
         msg: int = int(message.text)
-        cache = r.get(str(msg)).decode()
-        # if ():
+        fact = r.get(str(msg)).decode()
+        if fact is None:
+            fact = math.factorial(msg)
+            if msg >= 1000 or msg <= -1000:
+                fact = str(fact)[0:5]
+            r.set(str(msg), fact)
 
-        fact = math.factorial(msg)
-        if msg >= 1000 or msg <= -1000:
-            fact = str(fact)[0:5]
-        r.set(str(msg), fact)
 
-        bot.send_message(message.from_user.id, fact)
+
+
+
     except ValueError as ex:
         bot.send_message(
             message.from_user.id, "Введите число для получения факториала."

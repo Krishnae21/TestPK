@@ -4,7 +4,8 @@ services:
   app:
     build:
       context: .
-
+    command:
+      sh -c "python tgbot.py"
     container_name: app
     depends_on:
       - redis
