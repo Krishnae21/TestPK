@@ -4,7 +4,7 @@ import redis
 import telebot
 
 bot = telebot.TeleBot("6612234170:AAGqKFvH0G5kyo9dVPtCmopBow9Pj_QrFo0")
-r = redis.from_url("redis://redis:5470")
+r = redis.from_url("redis://redis:5370")
 
 
 @bot.message_handler(content_types=["text"])
